@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const cors = require('cors');
-const recipe = require('../models/recipe');
+const Recipe = require('../models/recipe');
 
 // const recipes = [
 //   {
@@ -24,6 +24,24 @@ router.get('/', cors(), async (req, res) => {
   }
 })
 
+// New recipe
+router.post('/', cors(), async (req, res) => {
+  const recipe = new Recipe({
+    title: req.body.title,
+    time: req.body.time,
+    difficulty: req.body.difficulty,
+    category: req.body.category,
+    description: req.body.description
+  })
 
+  try {
+    const newRecipe = await recipe.save()
+    console.log(req.body)
+    res.send('Success!')
+
+  } catch (error) {
+    console.log('err', error)
+  }
+})
 
 module.exports = router

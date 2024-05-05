@@ -22,7 +22,13 @@ app.set('views', __dirname + '/views')
 app.set('layout', 'layouts/layout')
 app.use(expressLayouts)
 app.use(express.static('public'))
+app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }))
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 const mongoose = require('mongoose')
 mongoose.connect(process.env.DATABSE_URL, { family: 4 })
