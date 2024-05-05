@@ -12,6 +12,8 @@ const expressLayouts = require('express-ejs-layouts')
 const bodyParser = require('body-parser')
 
 const indexRouter = require('./routes/index')
+const recipesRouter = require('./routes/recipes')
+
 const authorRouter = require('./routes/authors')
 const bookRouter = require('./routes/books')
 
@@ -29,6 +31,8 @@ db.on("error", error => console.log(error))
 db.once("open", () => console.log("Connected to mongoose"))
 
 app.use('/', indexRouter)
+app.use('/recipes', recipesRouter)
+
 app.use('/authors', authorRouter)
 app.use('/books', bookRouter)
 
