@@ -44,4 +44,15 @@ router.post('/', cors(), async (req, res) => {
   }
 })
 
+// Single recipe
+router.get('/:id', async (req, res) => {
+  try {
+    const recipe = await Recipe.findById(req.params.id)
+    res.json(recipe)
+
+  } catch (error) {
+    console.log('err', error)
+  }
+})
+
 module.exports = router
